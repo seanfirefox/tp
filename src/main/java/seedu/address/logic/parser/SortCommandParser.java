@@ -69,9 +69,10 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         // processes comparators from first to last (first goes first)
         // creates one chained comparator
+        // Default comparator is contact index
         Comparator<Person> comparator = CollectionUtil
                 .zip(comparatorStream, isAscendingStream, this::reverseComparatorIfDescending)
-                .reduce(Comparator.comparing(Person::getName), this::combineComparators);
+                .reduce(Comparator.comparing(Person::getContactIndex), this::combineComparators);
 
         // converts the prefixes into their name descriptors
         // n/ -> Name for example
