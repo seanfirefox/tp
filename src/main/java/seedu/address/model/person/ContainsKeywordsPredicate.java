@@ -50,7 +50,7 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
             return person.getEmail().getValue();
 
         case ADDRESS:
-            return person.getAddress().getValue().getName();
+            return person.getAddress().getValue();
 
         case TELEGRAM_HANDLE:
             return person.getTelegramHandle().getValue();

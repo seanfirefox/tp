@@ -3,7 +3,7 @@
     "name": "Linus Richards",
     "email": "linusrichards@gmail.com",
     "telegramHandle": "@linusrichards",
-    "address": "NUS",
+    "address": "National University of Singapore",
     "phone": "90102030",
     "groups": [
       "User"
@@ -14,25 +14,22 @@
       "CS2102",
       "CS2103",
       "CS2104",
-      "CS2105",
-      "CS2106"
-    ],
-    "index": 0
+      "CS2105"
+    ]
   },
   "persons": [
     {
-      "name": "Amirah Tan",
-      "email": "amirahtan@gmail.com",
-      "telegramHandle": "@amirahtan",
-      "address": "Tanah Merah",
+      "name": "Eusoff Richards",
+      "email": "eusoffrichards@gmail.com",
+      "telegramHandle": "@eusoffrichards",
+      "address": "301 South Buona Vista Road",
       "groups": [
-        "Groupmate"
+        "CCA"
       ],
-      "phone": "91965624",
-      "index": 33,
+      "phone": "86795172",
       "modules": [
         "CS2100",
-        "DSAIS1101"
+        "DSAI1101"
       ]
     }
   ]

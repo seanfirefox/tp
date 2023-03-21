@@ -18,7 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.EduMate;
 import seedu.address.model.ReadOnlyEduMate;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.ContactIndex;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -40,20 +39,16 @@ public class SampleDataUtil {
      */
     public static ReadOnlyEduMate getSampleEduMate(int size) {
         EduMate sampleEm = new EduMate();
-        User sampleUser = getSampleUser();
         try {
             List<Person> samplePersons = getSamplePersons();
+            Collections.shuffle(samplePersons);
             samplePersons.stream()
                     .filter(Objects::nonNull)
-                    .limit(size)
-                    .forEach(p -> {
-                        p.setCommonModules(sampleUser.getImmutableModuleTags());
-                        sampleEm.addPerson(p);
-                    });
+                    .limit(size).forEach(sampleEm::addPerson);
         } catch (FileNotFoundException fnfe) {
             logger.info("Sample Data not found: " + fnfe.getMessage());
         }
-        sampleEm.setUser(sampleUser);
+        sampleEm.setUser(getSampleUser());
         return sampleEm;
     }
 
@@ -104,7 +99,6 @@ public class SampleDataUtil {
                 new Email("linusrichards@gmail.com"),
                 new Address("National University of Singapore"),
                 new TelegramHandle("@linusrichards"),
-                new ContactIndex(0),
                 getGroupTagSet(),
                 getModuleTagSetFromUnsplitted("CS2100 CS2101 CS2102 CS2103 CS2104 CS2105")
         );
@@ -113,9 +107,8 @@ public class SampleDataUtil {
     /**
      * Formats the data from the text file.
      * @param personData String representing the person data in the text file.
-     * @param index The index to assign to the person.
      */
-    private static Person getSamplePerson(String personData, int index) {
+    private static Person getSamplePerson(String personData) {
         List<String> personDataList = Stream.of(personData.split("\\|"))
                 .map(String::trim)
                 .limit(7) // Maximum of 7 fields
@@ -125,7 +118,6 @@ public class SampleDataUtil {
             return null;
         }
 
-        ContactIndex contactIndex = new ContactIndex(index);
         Name name = new Name(personDataList.get(0));
         Phone phone = new Phone(personDataList.get(1));
         Email email = new Email(personDataList.get(2));
@@ -135,7 +127,7 @@ public class SampleDataUtil {
         Set<ModuleTag> moduleTagSet = getModuleTagSetFromUnsplitted(personDataList.get(6));
 
         return new Person(name, phone, email, address,
-                telegramHandle, contactIndex, groupTagSet, moduleTagSet);
+                telegramHandle, groupTagSet, moduleTagSet);
     }
 
     /**
@@ -144,22 +136,14 @@ public class SampleDataUtil {
     public static List<Person> getSamplePersons() throws FileNotFoundException {
         File sampleDataFile = new File("src/main/java/seedu/address/model/util/sampleData.txt");
         Scanner scanner = new Scanner(sampleDataFile);
-        List<String> lines = new ArrayList<>();
+        List<Person> personSet = new ArrayList<>();
 
         while (scanner.hasNextLine()) {
             String nextLine = scanner.nextLine();
-            lines.add(nextLine);
+            personSet.add(getSamplePerson(nextLine));
         }
 
-        Collections.shuffle(lines);
-
-        List<Person> personList = new ArrayList<>();
-
-        for (int i = 0; i < lines.size(); i++) {
-            personList.add(getSamplePerson(lines.get(i), i + 1));
-        }
-
-        return personList;
+        return personSet;
     }
 }
 

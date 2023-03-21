@@ -3,7 +3,7 @@
     "name": "Linus Richards",
     "email": "linusrichards@gmail.com",
     "telegramHandle": "@linusrichards",
-    "address": "NUS",
+    "address": "National University of Singapore",
     "phone": "90102030",
     "groups": [
       "User"
@@ -14,48 +14,42 @@
       "CS2102",
       "CS2103",
       "CS2104",
-      "CS2105",
-      "CS2106"
-    ],
-    "index": 0
+      "CS2105"
+    ]
   },
   "persons": [
     {
-      "name": "Nee Soon",
-      "email": "neesoon@gmail.com",
-      "telegramHandle": "@neesoon",
-      "address": "Yishun",
+      "name": "Nurul Khatibah Abdul Ibrahim",
+      "email": "nurulkhatibahabdulibrahim@gmail.com",
+      "telegramHandle": "@nurulkhatibahabdulibrahim",
+      "address": "201 Yishun Avenue 2",
       "groups": [
         "NS"
       ],
-      "phone": "83322492",
-      "index": 68,
+      "phone": "93395405",
       "modules": [
-        "CS2105",
-        "BT2201",
-        "CS2103",
-        "CS2030",
-        "CE2155",
-        "CS2106"
+        "CS2106",
+        "CS1010X",
+        "CS1010E",
+        "CS2040C",
+        "CS2113"
       ]
     },
     {
-      "name": "Nee Soon",
-      "email": "neesoon@gmail.com",
-      "telegramHandle": "@neesoon",
-      "address": "Yishun",
+      "name": "Nurul Khatibah Abdul Ibrahim",
+      "email": "nurulkhatibahabdulibrahim@gmail.com",
+      "telegramHandle": "@nurulkhatibahabdulibrahim",
+      "address": "201 Yishun Avenue 2",
       "groups": [
         "NS"
       ],
-      "phone": "83322492",
-      "index": 68,
+      "phone": "93395405",
       "modules": [
-        "CS2105",
-        "BT2201",
-        "CS2103",
-        "CS2030",
-        "CE2155",
-        "CS2106"
+        "CS2106",
+        "CS1010X",
+        "CS1010E",
+        "CS2040C",
+        "CS2113"
       ]
     }
   ]

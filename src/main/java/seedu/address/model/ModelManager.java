@@ -4,17 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.parser.IndexHandler;
-import seedu.address.model.person.ContactIndex;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
@@ -27,8 +23,6 @@ public class ModelManager implements Model {
     private final EduMate eduMate;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final SortedList<Person> observablePersons;
-    private final IndexHandler indexHandler;
 
     /**
      * Initializes a ModelManager with the given eduMate and userPrefs.
@@ -40,9 +34,7 @@ public class ModelManager implements Model {
 
         this.eduMate = new EduMate(eduMate);
         this.userPrefs = new UserPrefs(userPrefs);
-        indexHandler = new IndexHandler(this);
         filteredPersons = new FilteredList<>(this.eduMate.getPersonList());
-        observablePersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -108,13 +100,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Person addPerson(Person person) {
-        // The only place in the entire code that can set Contact Index.
-        ContactIndex contactIndex = indexHandler.assignIndex();
-        Person indexedPerson = person.setContactIndex(contactIndex);
-        eduMate.addPerson(indexedPerson);
-        updateObservablePersonList();
-        return indexedPerson;
+    public void addPerson(Person person) {
+        eduMate.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -148,26 +136,14 @@ public class ModelManager implements Model {
      * {@code versionedEduMate}
      */
     @Override
-    public ObservableList<Person> getObservablePersonList() {
-        return observablePersons;
+    public ObservableList<Person> getFilteredPersonList() {
+        return filteredPersons;
     }
 
     @Override
-    public void updateObservablePersonList(Comparator<Person> comparator) {
-        requireNonNull(comparator);
-        observablePersons.setComparator(comparator);
-    }
-
-    @Override
-    public void updateObservablePersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateObservablePersonList() {
-        filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
-        observablePersons.setComparator(COMPARATOR_CONTACT_INDEX);
     }
 
     @Override
@@ -186,7 +162,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return eduMate.equals(other.eduMate)
                 && userPrefs.equals(other.userPrefs)
-                && observablePersons.equals(other.observablePersons);
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

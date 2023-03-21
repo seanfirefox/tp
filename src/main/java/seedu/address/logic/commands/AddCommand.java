@@ -35,14 +35,14 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person candidatePerson;
+    private final Person toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
         requireNonNull(person);
-        this.candidatePerson = person;
+        toAdd = person;
     }
 
     @Override
@@ -53,21 +53,20 @@ public class AddCommand extends Command {
 
         // caches the common modules in each ModuleTagSet as running set
         // intersection is expensive if we only use it in the compareTo method
-        this.candidatePerson.setCommonModules(userModuleTags);
+        toAdd.setCommonModules(userModuleTags);
 
-        if (model.hasPerson(this.candidatePerson)) {
+        if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        Person indexedPerson = model.addPerson(candidatePerson);
-        model.updateObservablePersonList();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, indexedPerson));
+        model.addPerson(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
-                && candidatePerson.equals(((AddCommand) other).candidatePerson));
+                && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

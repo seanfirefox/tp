@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -15,9 +14,6 @@ import seedu.address.model.person.User;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** {@code Comparator} that sorts by contact index */
-    Comparator<Person> COMPARATOR_CONTACT_INDEX = Comparator.comparing(Person::getContactIndex);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -72,7 +68,7 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
-    Person addPerson(Person person);
+    void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -100,23 +96,11 @@ public interface Model {
     void setUser(User user);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getObservablePersonList();
+    ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Updates the filter of the observable person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateObservablePersonList(Predicate<Person> predicate);
-
-    /**
-     * Updates the sort comparator of the observable person list to sort by the given {@code comparator}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateObservablePersonList(Comparator<Person> comparator);
-
-    /**
-     * Updates the sort and filter of the observable person list to default.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateObservablePersonList();
+    void updateFilteredPersonList(Predicate<Person> predicate);
 }
