@@ -168,6 +168,9 @@ public class ModelManager implements Model {
         // The only place in the entire code that can set Contact Index.
         ContactIndex contactIndex = indexHandler.assignRecommendationIndex();
         Recommendation indexedRecommendation = recommendation.setContactIndex(contactIndex);
+
+        logger.info(indexedRecommendation.toString());
+
         eduMate.addRecommendation(indexedRecommendation);
         updateObservableRecommendationList();
         return indexedRecommendation;
@@ -271,6 +274,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
+        logger.info("EduMate equality: "
+                + eduMate.equals(other.eduMate));
+
         return eduMate.equals(other.eduMate)
                 && userPrefs.equals(other.userPrefs)
                 && observablePersons.equals(other.observablePersons);

@@ -1,5 +1,7 @@
 package seedu.address.logic.recommender.location;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import seedu.address.model.location.util.DistanceUtil;
 import seedu.address.model.person.Person;
 import seedu.address.model.time.Day;
 import seedu.address.model.time.HourBlock;
+import seedu.address.model.time.TimePeriod;
 import seedu.address.model.timetable.Timetable;
 
 /**
@@ -102,6 +105,21 @@ public class LocationTracker {
     }
 
     /**
+     * Gets the average location of a person within a time period.
+     */
+    public Optional<Location> getLocation(TimePeriod timePeriod) {
+        requireNonNull(timePeriod);
+        List<Location> locations =
+                timePeriod.fragmentIntoHourBlocks()
+                        .stream().map(this::getLocation)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .collect(Collectors.toList());
+
+        return Optional.of(DistanceUtil.getMidpoint(locations));
+    }
+
+    /**
      * Fills the unknown locations based on the last known and next known locations.
      */
     private void fillUnknown() {
@@ -110,8 +128,9 @@ public class LocationTracker {
         Pair<Location, Integer> endPair = new Pair<>(homeAddress, NUMBER_OF_HOURS);
 
         for (List<Optional<Location>> dayLocations : locations.values()) {
-            List<Pair<Location, Integer>> knownLocationIndices = findKnownLocationIndices(dayLocations);
+            List<Pair<Location, Integer>> knownLocationIndices = new ArrayList<>();
             knownLocationIndices.add(startPair);
+            knownLocationIndices.addAll(findKnownLocationIndices(dayLocations));
             knownLocationIndices.add(endPair);
             fillUnknownWithKnown(knownLocationIndices, dayLocations);
         }
