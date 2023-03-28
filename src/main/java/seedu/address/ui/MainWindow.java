@@ -61,7 +61,7 @@ public class MainWindow extends UiPart<Stage> {
     private Label userName;
 
     @FXML
-    private StackPane scheduledMeetsPlaceholder;
+    private VBox scheduledPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -100,15 +100,20 @@ public class MainWindow extends UiPart<Stage> {
         userProfilePlaceholder.getChildren().add(userProfilePanel.getRoot());
 
         meetListPanel = new MeetListPanel(logic.getObservableRecommendationList());
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(meetListPanel.getRoot());
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        meetPlaceholder.getChildren().add(scrollPane);
+        ScrollPane meetScrollPane = new ScrollPane();
+        meetScrollPane.setContent(meetListPanel.getRoot());
+        meetScrollPane.setFitToHeight(true);
+        meetScrollPane.setFitToWidth(true);
+        meetScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        meetPlaceholder.getChildren().add(meetScrollPane);
 
         // scheduledMeetsListPanel = new ScheduledMeetsListPanel(logic.getObservablePersonList());
-        // scheduledMeetsPlaceholder.getChildren().add(scheduledMeetsListPanel.getRoot());
+        // ScrollPane scheduledScrollPane = new ScrollPane();
+        // scheduledScrollPane.setContent(scheduledMeetsListPanel.getRoot());
+        // scheduledScrollPane.setFitToWidth(true);
+        // scheduledScrollPane.setFitToHeight(true);
+        // scheduledScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scheduledPlaceholder.getChildren().add(scheduledScrollPane);
 
         setUserName(logic.getUser());
     }
