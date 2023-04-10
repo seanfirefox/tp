@@ -269,7 +269,7 @@ where you can meet your friends.
 The panel, as shown below, contains all the recommended timings and locations for your meetups.
 <br>
 
-<img src="images/UG_ui_pictures/MeetUpRecommendationPanel.svg" style="width:80%;margin:0 10%">
+<img src="images/UG_ui_pictures/MeetUpRecommendationPanel.png" style="width:80%;margin:0 10%">
 
 <center>Diagram 7: Components of the Meet Up Recommendation Panel</center>
 </div>
